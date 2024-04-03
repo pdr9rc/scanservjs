@@ -111,7 +111,11 @@ USER $UNAME
 
 # default build
 FROM scanservjs-core
-
+RUN apt-get update \
+  && apt-get install -yq libsane-hpaio \
+  && apt-get clean \
+  && rm -rf /var/lib/apt/lists/* \
+  && echo hpaio >> /etc/sane.d/dll.conf
 # hplip image
 #
 # This image adds the HP scanner libs to the image. This target is not built by
