@@ -27,7 +27,7 @@ RUN ./makedeb.sh
 # be required by the deb package. It would all still work perfectly well if this
 # layer did not exist but testing would be slower and more painful.
 # ==============================================================================
-FROM debian:bookworm-slim AS scanservjs-base
+FROM debian:buster-slim AS scanservjs-base
 RUN apt-get update \
   && apt-get install -yq \
     nodejs \
@@ -89,6 +89,10 @@ EXPOSE 8080
 
 # default build
 FROM scanservjs-core
-RUN wget -c  https://download.sourceforge.net/project/hplip/hplip/3.23.3/hplip-3.23.3.run \
+RUN apt-get update \
+  && apt-get install -yq libsane-hpaio \
+  && apt-get clean \
   && rm -rf /var/lib/apt/lists/* \
   && echo hpaio >> /etc/sane.d/dll.conf 
+  #&& echo '[options]' >> /etc/sane.d/dll.conf \
+  #&& echo 'discovery = disable' >> /etc/sane.d/dll.conf
