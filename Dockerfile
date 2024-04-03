@@ -27,7 +27,7 @@ RUN ./makedeb.sh
 # be required by the deb package. It would all still work perfectly well if this
 # layer did not exist but testing would be slower and more painful.
 # ==============================================================================
-FROM debian:buster-slim AS scanservjs-base
+FROM debian:bullseye-slim AS scanservjs-base
 RUN apt-get update \
   && apt-get install -yq \
     nodejs \
