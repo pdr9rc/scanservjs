@@ -41,4 +41,7 @@ fi
 unset IFS
 set +f
 
+service dbus start
+service avahi-daemon start
+
 node ./server/server.js
