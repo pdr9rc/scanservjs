@@ -15,7 +15,10 @@ jobs:
     steps:
     - uses: actions/checkout@v3
     - name: Build the Docker image
+      env: 
+         CR_PAT: ${{ secrets.token }}
       run: |
+          echo $CR_PAT | docker login ghcr.io -u USERNAME --password-stdin
           docker build . --file Dockerfile --tag scanservjs-hewly
           docker tag scanservjs-hewly osorezan/scanservjs-hewly
           docker push osorezan/scanservjs-hewly
