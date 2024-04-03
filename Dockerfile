@@ -95,4 +95,6 @@ RUN apt-get update \
   && rm -rf /var/lib/apt/lists/* \
   && echo hpaio >> /etc/sane.d/dll.conf \
   && echo '[options]' >> /etc/sane.d/dll.conf \
-  && echo 'discovery = disable' >> /etc/sane.d/dll.conf
+  && echo 'discovery = disable' >> /etc/sane.d/dll.conf \
+  && service dbus start \
+  && service avahi-daemon start
