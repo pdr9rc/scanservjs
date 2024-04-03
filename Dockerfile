@@ -76,7 +76,8 @@ ENV \
 COPY entrypoint.sh /entrypoint.sh
 RUN ["chmod", "+x", "/entrypoint.sh"]
 ENTRYPOINT [ "/entrypoint.sh" ]
-
+CMD service dbus start \
+  && service avahi-daemon start
 # Copy the code and install
 COPY --from=scanservjs-build "/app/debian/scanservjs_*.deb" "/"
 RUN apt-get install ./scanservjs_*.deb \
@@ -95,6 +96,4 @@ RUN apt-get update \
   && rm -rf /var/lib/apt/lists/* \
   && echo hpaio >> /etc/sane.d/dll.conf \
   && echo '[options]' >> /etc/sane.d/dll.conf \
-  && echo 'discovery = disable' >> /etc/sane.d/dll.conf \
-  && service dbus start \
-  && service avahi-daemon start
+  && echo 'discovery = disable' >> /etc/sane.d/dll.conf 
