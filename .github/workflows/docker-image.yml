@@ -18,7 +18,7 @@ jobs:
       env: 
          CR_PAT: ${{ secrets.token }}
       run: |
-          echo $CR_PAT | docker login ghcr.io -u USERNAME --password-stdin
+          echo $CR_PAT | docker login -u osorezan --password-stdin
           docker build . --file Dockerfile --tag scanservjs-hewly
           docker tag scanservjs-hewly osorezan/scanservjs-hewly
           docker push osorezan/scanservjs-hewly
